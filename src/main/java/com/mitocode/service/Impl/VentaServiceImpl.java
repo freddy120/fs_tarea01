@@ -14,23 +14,23 @@ import java.util.List;
 @Service
 public class VentaServiceImpl extends CRUDImpl<Venta, Integer> implements IVentaService {
 
-	@Autowired
-	private IVentaRepo repo;
+  @Autowired
+  private IVentaRepo repo;
 
 
-	@Override
-	protected IGenericRepo<Venta, Integer> getRepo() {
-		return repo;
-	}
+  @Override
+  protected IGenericRepo<Venta, Integer> getRepo() {
+    return repo;
+  }
 
-	@Override
-	public List<Venta> buscar(FiltroConsultaDTO filtro) {
-		return repo.buscar(filtro.getNombreCompleto());
-	}
+  @Override
+  public List<Venta> buscar(FiltroConsultaDTO filtro) {
+    return repo.buscar(filtro.getNombreCompleto());
+  }
 
-	@Override
-	public List<Venta> buscarFecha(LocalDateTime fecha) {
-		return repo.buscarFecha(fecha, fecha.plusDays(1));
-	}
+  @Override
+  public List<Venta> buscarFecha(LocalDateTime fecha) {
+    return repo.buscarFecha(fecha, fecha.plusDays(1));
+  }
 
 }

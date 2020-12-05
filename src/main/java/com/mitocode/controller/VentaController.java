@@ -24,77 +24,77 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequestMapping("/ventas")
 public class VentaController {
 
-	@Autowired
-	private IVentaService service;
-	
+  @Autowired
+  private IVentaService service;
 
-	@GetMapping
-	public ResponseEntity<List<Venta>> listar() throws Exception {
-		List<Venta> lista = service.listar();
-		return new ResponseEntity<>(lista, HttpStatus.OK);
-	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Venta> listarPorId(@PathVariable("id") Integer id) throws Exception {
-		Venta obj = service.listarPorId(id);
+  @GetMapping
+  public ResponseEntity<List<Venta>> listar() throws Exception {
+    List<Venta> lista = service.listar();
+    return new ResponseEntity<>(lista, HttpStatus.OK);
+  }
 
-		if (obj == null) {
-			throw new ModeloNotFoundException("ID NO ENCONTRADO " + id);
-		}
-		return new ResponseEntity<>(obj, HttpStatus.OK);
-	}
+  @GetMapping("/{id}")
+  public ResponseEntity<Venta> listarPorId(@PathVariable("id") Integer id) throws Exception {
+    Venta obj = service.listarPorId(id);
 
-	@GetMapping("/hateoas/{id}")
-	public EntityModel<Venta> listarPorIdHateoas(@PathVariable("id") Integer id) throws Exception {
-		Venta obj = service.listarPorId(id);
+    if (obj == null) {
+      throw new ModeloNotFoundException("ID NO ENCONTRADO " + id);
+    }
+    return new ResponseEntity<>(obj, HttpStatus.OK);
+  }
 
-		if (obj.getIdVenta() == null) {
-			throw new ModeloNotFoundException("ID NO ENCONTRADO " + id);
-		}
+  @GetMapping("/hateoas/{id}")
+  public EntityModel<Venta> listarPorIdHateoas(@PathVariable("id") Integer id) throws Exception {
+    Venta obj = service.listarPorId(id);
 
-		// localhost:8080/Consultas/{id}
-		EntityModel<Venta> recurso = EntityModel.of(obj);
+    if (obj.getIdVenta() == null) {
+      throw new ModeloNotFoundException("ID NO ENCONTRADO " + id);
+    }
 
-		WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).listarPorId(id));
+    // localhost:8080/Consultas/{id}
+    EntityModel<Venta> recurso = EntityModel.of(obj);
 
-		recurso.add(linkTo.withRel("Venta-recurso"));
+    WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).listarPorId(id));
 
-		return recurso;
-	}
+    recurso.add(linkTo.withRel("Venta-recurso"));
 
-	@PostMapping
-	public ResponseEntity<Venta> registrar(@Valid @RequestBody Venta v) throws Exception {
+    return recurso;
+  }
 
-		v.getDetalleVenta().forEach(det -> det.setVenta(v));
+  @PostMapping
+  public ResponseEntity<Venta> registrar(@Valid @RequestBody Venta v) throws Exception {
 
-		Venta obj = service.registrar(v);
+    v.getDetalleVenta().forEach(det -> det.setVenta(v));
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(obj.getIdVenta()).toUri();
-		return ResponseEntity.created(location).build();
-	}
+    Venta obj = service.registrar(v);
 
-	
-	@GetMapping("/buscar")
-	public ResponseEntity<List<Venta>> buscarFecha(@RequestParam("fecha") String fecha) {
-		List<Venta> consultas;
-		
-		consultas = service.buscarFecha(LocalDateTime.parse(fecha));						
-		
-		return new ResponseEntity<>(consultas, HttpStatus.OK);
-	}
-	
-	@PostMapping("/buscar/otros")
-	public ResponseEntity<List<Venta>> buscarOtro(@RequestBody FiltroConsultaDTO filtro) {
-		List<Venta> consultas;
-		
-		consultas = service.buscar(filtro);			
-		
-		return new ResponseEntity<>(consultas, HttpStatus.OK);
-	}
+    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+        .buildAndExpand(obj.getIdVenta()).toUri();
+    return ResponseEntity.created(location).build();
+  }
 
-	
 
-	
-	
+  @GetMapping("/buscar")
+  public ResponseEntity<List<Venta>> buscarFecha(@RequestParam("fecha") String fecha) {
+    List<Venta> consultas;
+
+    consultas = service.buscarFecha(LocalDateTime.parse(fecha));
+
+    return new ResponseEntity<>(consultas, HttpStatus.OK);
+  }
+
+  @PostMapping("/buscar/otros")
+  public ResponseEntity<List<Venta>> buscarOtro(@RequestBody FiltroConsultaDTO filtro) {
+    List<Venta> consultas;
+
+    consultas = service.buscar(filtro);
+
+    return new ResponseEntity<>(consultas, HttpStatus.OK);
+  }
+
+
+
+
+
 }

@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductoServiceImpl extends CRUDImpl<Producto, Integer> implements IProductoService {
 
-	@Autowired
-	private IProductoRepo repo;
+  @Autowired
+  private IProductoRepo repo;
 
-	@Override
-	protected IGenericRepo<Producto, Integer> getRepo() {
-		return repo;
-	}
-	
-	
+  @Override
+  protected IGenericRepo<Producto, Integer> getRepo() {
+    return repo;
+  }
+
+
 
 }

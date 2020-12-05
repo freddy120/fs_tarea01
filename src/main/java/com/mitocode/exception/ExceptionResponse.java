@@ -5,41 +5,41 @@ import java.time.LocalDateTime;
 //POJO
 public class ExceptionResponse {
 
-	private LocalDateTime fecha;
-	private String mensaje;
-	private String detalles;		
+  private LocalDateTime fecha;
+  private String mensaje;
+  private String detalles;
 
-	public ExceptionResponse() {}
-	
-	public ExceptionResponse(LocalDateTime fecha, String mensaje, String detalles) {
-		super();
-		this.fecha = fecha;
-		this.mensaje = mensaje;
-		this.detalles = detalles;
-	}
+  public ExceptionResponse() {}
 
-	public LocalDateTime getFecha() {
-		return fecha;
-	}
+  public ExceptionResponse(LocalDateTime fecha, String mensaje, String detalles) {
+    super();
+    this.fecha = fecha;
+    this.mensaje = mensaje;
+    this.detalles = detalles;
+  }
 
-	public void setFecha(LocalDateTime fecha) {
-		this.fecha = fecha;
-	}
+  public LocalDateTime getFecha() {
+    return fecha;
+  }
 
-	public String getMensaje() {
-		return mensaje;
-	}
+  public void setFecha(LocalDateTime fecha) {
+    this.fecha = fecha;
+  }
 
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
-	}
+  public String getMensaje() {
+    return mensaje;
+  }
 
-	public String getDetalles() {
-		return detalles;
-	}
+  public void setMensaje(String mensaje) {
+    this.mensaje = mensaje;
+  }
 
-	public void setDetalles(String detalles) {
-		this.detalles = detalles;
-	}
+  public String getDetalles() {
+    return detalles;
+  }
+
+  public void setDetalles(String detalles) {
+    this.detalles = detalles;
+  }
 
 }

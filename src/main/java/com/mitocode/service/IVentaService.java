@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface IVentaService extends ICRUD<Venta, Integer>{
 
-	List<Venta> buscar(FiltroConsultaDTO filtro);
+  List<Venta> buscar(FiltroConsultaDTO filtro);
 
-	List<Venta> buscarFecha(LocalDateTime fecha);
+  List<Venta> buscarFecha(LocalDateTime fecha);
 
 }
